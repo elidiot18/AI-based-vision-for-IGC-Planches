@@ -4,4 +4,4 @@ The following picture shows how U-Net is able to identify the zones of limestone
 
 [!image](./U-Net/Evaluation/opti-animated.gif)
 
-Because of size issues, I cannot share the training data on GitHub, although I am sharing the pickle saves from U-Net. Reach me at pierre.elis@hotmail.fr for discussion.
+Because of size issues, I cannot share the training data on GitHub, as well as the dictionnary saves of the U-Net model. I am open to discussion and for sharing these data though, you can reach me at pierre_dot_elis_at_hotmail_dot_fr for discussion.
