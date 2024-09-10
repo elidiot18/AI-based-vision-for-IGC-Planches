@@ -2,3 +2,4 @@ U-Net/Training/batch_*
 U-Net/Training/images
 U-Net/Evaluation/*.png
 **/*.pth
+**/*.svg
