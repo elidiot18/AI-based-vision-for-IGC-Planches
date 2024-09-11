@@ -457,3 +457,9 @@ Loss of evaluation set: 0.0589
 2024-09-10 15:06:22,181 - INFO - (Partial) epoch with ratio 1.0: 4,
 Loss of training set: 0.0988,
 Loss of evaluation set: 0.0457
+2024-09-10 17:38:27,136 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.0308,
+Loss of evaluation set: 0.1259
+2024-09-11 15:55:54,134 - INFO - (Partial) epoch with ratio 0.0001: 0,
+Loss of training set: 0.1713,
+Loss of evaluation set: 0.1342
