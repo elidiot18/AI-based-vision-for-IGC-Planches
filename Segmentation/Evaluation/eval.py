@@ -69,7 +69,7 @@ output = torch.zeros((2, h, w), dtype=torch.float32).to(device)
 overlap = 0.5
 step = int(256 * (1 - overlap))
 
-batch_size = 18
+batch_size = 15
 patches = []
 coords = []
 

@@ -1,0 +1,609 @@
+2024-09-07 15:55:06,123 - INFO - (Partial) epoch with ratio 0.1: 0,
+Loss of training set: 25.9231,
+Loss of evaluation set: 229.8569
+2024-09-07 15:57:14,577 - INFO - (Partial) epoch with ratio 0.01: 0,
+Loss of training set: 2.9868,
+Loss of evaluation set: 2.6337
+2024-09-07 16:09:30,115 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 150.2634,
+Loss of evaluation set: 7.8645
+2024-09-07 16:17:24,462 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 94.8364,
+Loss of evaluation set: 5.7576
+2024-09-07 16:25:19,068 - INFO - (Partial) epoch with ratio 1.0: 2,
+Loss of training set: 76.5360,
+Loss of evaluation set: 6.0742
+2024-09-07 16:33:12,945 - INFO - (Partial) epoch with ratio 1.0: 3,
+Loss of training set: 68.7543,
+Loss of evaluation set: 5.4972
+2024-09-07 16:41:06,927 - INFO - (Partial) epoch with ratio 1.0: 4,
+Loss of training set: 62.5425,
+Loss of evaluation set: 5.0586
+2024-09-07 16:49:01,203 - INFO - (Partial) epoch with ratio 1.0: 5,
+Loss of training set: 61.1500,
+Loss of evaluation set: 4.7784
+2024-09-07 16:56:55,141 - INFO - (Partial) epoch with ratio 1.0: 6,
+Loss of training set: 60.0109,
+Loss of evaluation set: 5.4304
+2024-09-07 17:04:49,538 - INFO - (Partial) epoch with ratio 1.0: 7,
+Loss of training set: 57.9256,
+Loss of evaluation set: 5.2749
+2024-09-07 17:12:43,831 - INFO - (Partial) epoch with ratio 1.0: 8,
+Loss of training set: 56.1813,
+Loss of evaluation set: 5.7296
+2024-09-07 17:20:37,809 - INFO - (Partial) epoch with ratio 1.0: 9,
+Loss of training set: 54.6282,
+Loss of evaluation set: 4.9261
+2024-09-07 23:50:39,041 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.1072,
+Loss of evaluation set: 0.1408
+2024-09-07 23:58:50,310 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 0.1076,
+Loss of evaluation set: 0.1526
+2024-09-08 00:07:00,747 - INFO - (Partial) epoch with ratio 1.0: 2,
+Loss of training set: 0.1041,
+Loss of evaluation set: 0.1525
+2024-09-08 00:15:10,110 - INFO - (Partial) epoch with ratio 1.0: 3,
+Loss of training set: 0.1036,
+Loss of evaluation set: 0.1434
+2024-09-08 00:23:19,559 - INFO - (Partial) epoch with ratio 1.0: 4,
+Loss of training set: 0.1054,
+Loss of evaluation set: 0.1587
+2024-09-08 00:31:29,231 - INFO - (Partial) epoch with ratio 1.0: 5,
+Loss of training set: 0.1054,
+Loss of evaluation set: 0.1392
+2024-09-08 00:39:39,231 - INFO - (Partial) epoch with ratio 1.0: 6,
+Loss of training set: 0.0994,
+Loss of evaluation set: 0.1405
+2024-09-08 00:47:48,871 - INFO - (Partial) epoch with ratio 1.0: 7,
+Loss of training set: 0.1036,
+Loss of evaluation set: 0.1761
+2024-09-08 00:55:58,546 - INFO - (Partial) epoch with ratio 1.0: 8,
+Loss of training set: 0.1007,
+Loss of evaluation set: 0.1605
+2024-09-08 01:04:08,083 - INFO - (Partial) epoch with ratio 1.0: 9,
+Loss of training set: 0.0992,
+Loss of evaluation set: 0.1413
+2024-09-08 01:12:17,758 - INFO - (Partial) epoch with ratio 1.0: 10,
+Loss of training set: 0.1007,
+Loss of evaluation set: 0.1382
+2024-09-08 01:20:27,673 - INFO - (Partial) epoch with ratio 1.0: 11,
+Loss of training set: 0.1034,
+Loss of evaluation set: 0.1646
+2024-09-08 01:28:37,466 - INFO - (Partial) epoch with ratio 1.0: 12,
+Loss of training set: 0.1017,
+Loss of evaluation set: 0.1594
+2024-09-08 01:36:47,276 - INFO - (Partial) epoch with ratio 1.0: 13,
+Loss of training set: 0.0977,
+Loss of evaluation set: 0.1458
+2024-09-08 01:44:57,332 - INFO - (Partial) epoch with ratio 1.0: 14,
+Loss of training set: 0.0961,
+Loss of evaluation set: 0.1448
+2024-09-08 01:53:06,929 - INFO - (Partial) epoch with ratio 1.0: 15,
+Loss of training set: 0.0958,
+Loss of evaluation set: 0.1462
+2024-09-08 02:01:16,687 - INFO - (Partial) epoch with ratio 1.0: 16,
+Loss of training set: 0.1076,
+Loss of evaluation set: 0.1805
+2024-09-08 02:09:27,634 - INFO - (Partial) epoch with ratio 1.0: 17,
+Loss of training set: 0.0976,
+Loss of evaluation set: 0.1298
+2024-09-08 02:17:39,195 - INFO - (Partial) epoch with ratio 1.0: 18,
+Loss of training set: 0.0956,
+Loss of evaluation set: 0.1464
+2024-09-08 02:25:49,881 - INFO - (Partial) epoch with ratio 1.0: 19,
+Loss of training set: 0.0959,
+Loss of evaluation set: 0.1502
+2024-09-08 02:33:59,932 - INFO - (Partial) epoch with ratio 1.0: 20,
+Loss of training set: 0.1014,
+Loss of evaluation set: 0.1606
+2024-09-08 02:42:09,952 - INFO - (Partial) epoch with ratio 1.0: 21,
+Loss of training set: 0.0953,
+Loss of evaluation set: 0.1563
+2024-09-08 02:50:19,634 - INFO - (Partial) epoch with ratio 1.0: 22,
+Loss of training set: 0.0982,
+Loss of evaluation set: 0.1604
+2024-09-08 02:58:29,610 - INFO - (Partial) epoch with ratio 1.0: 23,
+Loss of training set: 0.0960,
+Loss of evaluation set: 0.1571
+2024-09-08 03:06:39,743 - INFO - (Partial) epoch with ratio 1.0: 24,
+Loss of training set: 0.0955,
+Loss of evaluation set: 0.1367
+2024-09-08 03:14:49,567 - INFO - (Partial) epoch with ratio 1.0: 25,
+Loss of training set: 0.0939,
+Loss of evaluation set: 0.1424
+2024-09-08 03:22:59,097 - INFO - (Partial) epoch with ratio 1.0: 26,
+Loss of training set: 0.0936,
+Loss of evaluation set: 0.1472
+2024-09-08 03:31:08,715 - INFO - (Partial) epoch with ratio 1.0: 27,
+Loss of training set: 0.1009,
+Loss of evaluation set: 0.1579
+2024-09-08 03:39:18,428 - INFO - (Partial) epoch with ratio 1.0: 28,
+Loss of training set: 0.0956,
+Loss of evaluation set: 0.1690
+2024-09-08 03:47:28,117 - INFO - (Partial) epoch with ratio 1.0: 29,
+Loss of training set: 0.0955,
+Loss of evaluation set: 0.1671
+2024-09-08 03:55:37,503 - INFO - (Partial) epoch with ratio 1.0: 30,
+Loss of training set: 0.0967,
+Loss of evaluation set: 0.1807
+2024-09-08 04:03:47,174 - INFO - (Partial) epoch with ratio 1.0: 31,
+Loss of training set: 0.0941,
+Loss of evaluation set: 0.1483
+2024-09-08 04:11:56,844 - INFO - (Partial) epoch with ratio 1.0: 32,
+Loss of training set: 0.0932,
+Loss of evaluation set: 0.1352
+2024-09-08 04:20:06,657 - INFO - (Partial) epoch with ratio 1.0: 33,
+Loss of training set: 0.0928,
+Loss of evaluation set: 0.1576
+2024-09-08 04:28:16,779 - INFO - (Partial) epoch with ratio 1.0: 34,
+Loss of training set: 0.0928,
+Loss of evaluation set: 0.1521
+2024-09-08 04:36:26,928 - INFO - (Partial) epoch with ratio 1.0: 35,
+Loss of training set: 0.0929,
+Loss of evaluation set: 0.1413
+2024-09-08 04:44:36,898 - INFO - (Partial) epoch with ratio 1.0: 36,
+Loss of training set: 0.0962,
+Loss of evaluation set: 0.1842
+2024-09-08 04:52:47,051 - INFO - (Partial) epoch with ratio 1.0: 37,
+Loss of training set: 0.0970,
+Loss of evaluation set: 0.1360
+2024-09-08 05:00:57,468 - INFO - (Partial) epoch with ratio 1.0: 38,
+Loss of training set: 0.0931,
+Loss of evaluation set: 0.1576
+2024-09-08 05:09:07,818 - INFO - (Partial) epoch with ratio 1.0: 39,
+Loss of training set: 0.0926,
+Loss of evaluation set: 0.1750
+2024-09-08 05:17:18,300 - INFO - (Partial) epoch with ratio 1.0: 40,
+Loss of training set: 0.0921,
+Loss of evaluation set: 0.1438
+2024-09-08 05:25:28,107 - INFO - (Partial) epoch with ratio 1.0: 41,
+Loss of training set: 0.0923,
+Loss of evaluation set: 0.1501
+2024-09-08 05:33:37,997 - INFO - (Partial) epoch with ratio 1.0: 42,
+Loss of training set: 0.0923,
+Loss of evaluation set: 0.1770
+2024-09-08 05:41:48,051 - INFO - (Partial) epoch with ratio 1.0: 43,
+Loss of training set: 0.0921,
+Loss of evaluation set: 0.1756
+2024-09-08 05:49:58,153 - INFO - (Partial) epoch with ratio 1.0: 44,
+Loss of training set: 0.0992,
+Loss of evaluation set: 0.1574
+2024-09-08 05:58:08,418 - INFO - (Partial) epoch with ratio 1.0: 45,
+Loss of training set: 0.0927,
+Loss of evaluation set: 0.2126
+2024-09-08 06:06:19,185 - INFO - (Partial) epoch with ratio 1.0: 46,
+Loss of training set: 0.0923,
+Loss of evaluation set: 0.1345
+2024-09-08 06:14:29,746 - INFO - (Partial) epoch with ratio 1.0: 47,
+Loss of training set: 0.0919,
+Loss of evaluation set: 0.1464
+2024-09-08 06:22:40,569 - INFO - (Partial) epoch with ratio 1.0: 48,
+Loss of training set: 0.0912,
+Loss of evaluation set: 0.1395
+2024-09-08 06:30:51,333 - INFO - (Partial) epoch with ratio 1.0: 49,
+Loss of training set: 0.0921,
+Loss of evaluation set: 0.1678
+2024-09-08 06:39:01,668 - INFO - (Partial) epoch with ratio 1.0: 50,
+Loss of training set: 0.0924,
+Loss of evaluation set: 0.1494
+2024-09-08 06:47:12,051 - INFO - (Partial) epoch with ratio 1.0: 51,
+Loss of training set: 0.0912,
+Loss of evaluation set: 0.1557
+2024-09-08 06:55:22,955 - INFO - (Partial) epoch with ratio 1.0: 52,
+Loss of training set: 0.0936,
+Loss of evaluation set: 0.1766
+2024-09-08 07:03:33,313 - INFO - (Partial) epoch with ratio 1.0: 53,
+Loss of training set: 0.0929,
+Loss of evaluation set: 0.1746
+2024-09-08 07:11:43,897 - INFO - (Partial) epoch with ratio 1.0: 54,
+Loss of training set: 0.0915,
+Loss of evaluation set: 0.2309
+2024-09-08 07:19:54,060 - INFO - (Partial) epoch with ratio 1.0: 55,
+Loss of training set: 0.0908,
+Loss of evaluation set: 0.1453
+2024-09-08 07:28:03,639 - INFO - (Partial) epoch with ratio 1.0: 56,
+Loss of training set: 0.0908,
+Loss of evaluation set: 0.1655
+2024-09-08 07:36:13,375 - INFO - (Partial) epoch with ratio 1.0: 57,
+Loss of training set: 0.0907,
+Loss of evaluation set: 0.1487
+2024-09-08 07:44:23,032 - INFO - (Partial) epoch with ratio 1.0: 58,
+Loss of training set: 0.0907,
+Loss of evaluation set: 0.1528
+2024-09-08 07:52:32,670 - INFO - (Partial) epoch with ratio 1.0: 59,
+Loss of training set: 0.0978,
+Loss of evaluation set: 0.1757
+2024-09-08 08:00:42,482 - INFO - (Partial) epoch with ratio 1.0: 60,
+Loss of training set: 0.0911,
+Loss of evaluation set: 0.1440
+2024-09-08 08:08:52,562 - INFO - (Partial) epoch with ratio 1.0: 61,
+Loss of training set: 0.0907,
+Loss of evaluation set: 0.1754
+2024-09-08 08:17:02,786 - INFO - (Partial) epoch with ratio 1.0: 62,
+Loss of training set: 0.0934,
+Loss of evaluation set: 0.1491
+2024-09-08 08:25:13,429 - INFO - (Partial) epoch with ratio 1.0: 63,
+Loss of training set: 0.0905,
+Loss of evaluation set: 0.1686
+2024-09-08 08:33:23,711 - INFO - (Partial) epoch with ratio 1.0: 64,
+Loss of training set: 0.0902,
+Loss of evaluation set: 0.1921
+2024-09-08 08:41:33,818 - INFO - (Partial) epoch with ratio 1.0: 65,
+Loss of training set: 0.0904,
+Loss of evaluation set: 0.1401
+2024-09-08 08:49:43,805 - INFO - (Partial) epoch with ratio 1.0: 66,
+Loss of training set: 0.0900,
+Loss of evaluation set: 0.1457
+2024-09-08 08:57:53,231 - INFO - (Partial) epoch with ratio 1.0: 67,
+Loss of training set: 0.0900,
+Loss of evaluation set: 0.1554
+2024-09-08 09:06:03,493 - INFO - (Partial) epoch with ratio 1.0: 68,
+Loss of training set: 0.0967,
+Loss of evaluation set: 0.2435
+2024-09-08 09:14:13,432 - INFO - (Partial) epoch with ratio 1.0: 69,
+Loss of training set: 0.0919,
+Loss of evaluation set: 0.1313
+2024-09-08 09:22:22,833 - INFO - (Partial) epoch with ratio 1.0: 70,
+Loss of training set: 0.0903,
+Loss of evaluation set: 0.1656
+2024-09-08 09:30:32,102 - INFO - (Partial) epoch with ratio 1.0: 71,
+Loss of training set: 0.0902,
+Loss of evaluation set: 0.2385
+2024-09-08 09:38:41,766 - INFO - (Partial) epoch with ratio 1.0: 72,
+Loss of training set: 0.0899,
+Loss of evaluation set: 0.1483
+2024-09-08 09:46:51,677 - INFO - (Partial) epoch with ratio 1.0: 73,
+Loss of training set: 0.0898,
+Loss of evaluation set: 0.1618
+2024-09-08 09:55:01,242 - INFO - (Partial) epoch with ratio 1.0: 74,
+Loss of training set: 0.0897,
+Loss of evaluation set: 0.1923
+2024-09-08 10:03:10,896 - INFO - (Partial) epoch with ratio 1.0: 75,
+Loss of training set: 0.0898,
+Loss of evaluation set: 0.1736
+2024-09-08 10:11:20,650 - INFO - (Partial) epoch with ratio 1.0: 76,
+Loss of training set: 0.0897,
+Loss of evaluation set: 0.2008
+2024-09-08 10:19:53,084 - INFO - (Partial) epoch with ratio 1.0: 77,
+Loss of training set: 0.0897,
+Loss of evaluation set: 0.1707
+2024-09-08 10:28:49,047 - INFO - (Partial) epoch with ratio 1.0: 78,
+Loss of training set: 0.0899,
+Loss of evaluation set: 0.1277
+2024-09-08 10:37:41,794 - INFO - (Partial) epoch with ratio 1.0: 79,
+Loss of training set: 0.0897,
+Loss of evaluation set: 0.1966
+2024-09-08 10:46:33,634 - INFO - (Partial) epoch with ratio 1.0: 80,
+Loss of training set: 0.0897,
+Loss of evaluation set: 0.1776
+2024-09-08 10:55:25,672 - INFO - (Partial) epoch with ratio 1.0: 81,
+Loss of training set: 0.0947,
+Loss of evaluation set: 0.1812
+2024-09-08 11:03:50,250 - INFO - (Partial) epoch with ratio 1.0: 82,
+Loss of training set: 0.0898,
+Loss of evaluation set: 0.1461
+2024-09-08 11:11:57,977 - INFO - (Partial) epoch with ratio 1.0: 83,
+Loss of training set: 0.0898,
+Loss of evaluation set: 0.1618
+2024-09-08 11:20:05,988 - INFO - (Partial) epoch with ratio 1.0: 84,
+Loss of training set: 0.0947,
+Loss of evaluation set: 0.2237
+2024-09-08 11:28:14,302 - INFO - (Partial) epoch with ratio 1.0: 85,
+Loss of training set: 0.0933,
+Loss of evaluation set: 0.1545
+2024-09-10 00:11:11,041 - INFO - (Partial) epoch with ratio 1: 0,
+Loss of training set: 0.0576,
+Loss of evaluation set: 0.1054
+2024-09-10 00:35:32,681 - INFO - (Partial) epoch with ratio 1: 1,
+Loss of training set: 0.0530,
+Loss of evaluation set: 0.0996
+2024-09-10 00:59:54,633 - INFO - (Partial) epoch with ratio 1: 2,
+Loss of training set: 0.0545,
+Loss of evaluation set: 0.1182
+2024-09-10 01:24:16,951 - INFO - (Partial) epoch with ratio 1: 3,
+Loss of training set: 0.0524,
+Loss of evaluation set: 0.0948
+2024-09-10 01:48:38,800 - INFO - (Partial) epoch with ratio 1: 4,
+Loss of training set: 0.0515,
+Loss of evaluation set: 0.1223
+2024-09-10 02:13:01,780 - INFO - (Partial) epoch with ratio 1: 5,
+Loss of training set: 0.0546,
+Loss of evaluation set: 0.1201
+2024-09-10 02:37:23,805 - INFO - (Partial) epoch with ratio 1: 6,
+Loss of training set: 0.0521,
+Loss of evaluation set: 0.1250
+2024-09-10 03:01:44,681 - INFO - (Partial) epoch with ratio 1: 7,
+Loss of training set: 0.0513,
+Loss of evaluation set: 0.1612
+2024-09-10 03:26:06,980 - INFO - (Partial) epoch with ratio 1: 8,
+Loss of training set: 0.0509,
+Loss of evaluation set: 0.1494
+2024-09-10 03:50:28,071 - INFO - (Partial) epoch with ratio 1: 9,
+Loss of training set: 0.0530,
+Loss of evaluation set: 0.1352
+2024-09-10 04:14:49,422 - INFO - (Partial) epoch with ratio 1: 10,
+Loss of training set: 0.0514,
+Loss of evaluation set: 0.1196
+2024-09-10 04:39:09,892 - INFO - (Partial) epoch with ratio 1: 11,
+Loss of training set: 0.0507,
+Loss of evaluation set: 0.1072
+2024-09-10 05:03:29,833 - INFO - (Partial) epoch with ratio 1: 12,
+Loss of training set: 0.0505,
+Loss of evaluation set: 0.1518
+2024-09-10 05:27:50,112 - INFO - (Partial) epoch with ratio 1: 13,
+Loss of training set: 0.0535,
+Loss of evaluation set: 0.1038
+2024-09-10 05:52:10,413 - INFO - (Partial) epoch with ratio 1: 14,
+Loss of training set: 0.0506,
+Loss of evaluation set: 0.1224
+2024-09-10 06:16:30,938 - INFO - (Partial) epoch with ratio 1: 15,
+Loss of training set: 0.0504,
+Loss of evaluation set: 0.1164
+2024-09-10 06:40:54,541 - INFO - (Partial) epoch with ratio 1: 16,
+Loss of training set: 0.0501,
+Loss of evaluation set: 0.1165
+2024-09-10 07:05:14,050 - INFO - (Partial) epoch with ratio 1: 17,
+Loss of training set: 0.0519,
+Loss of evaluation set: 0.1342
+2024-09-10 07:29:34,473 - INFO - (Partial) epoch with ratio 1: 18,
+Loss of training set: 0.0499,
+Loss of evaluation set: 0.1186
+2024-09-10 07:53:54,503 - INFO - (Partial) epoch with ratio 1: 19,
+Loss of training set: 0.0518,
+Loss of evaluation set: 0.1310
+2024-09-10 08:18:14,621 - INFO - (Partial) epoch with ratio 1: 20,
+Loss of training set: 0.0497,
+Loss of evaluation set: 0.1190
+2024-09-10 08:42:35,318 - INFO - (Partial) epoch with ratio 1: 21,
+Loss of training set: 0.0496,
+Loss of evaluation set: 0.1434
+2024-09-10 09:06:55,628 - INFO - (Partial) epoch with ratio 1: 22,
+Loss of training set: 0.0495,
+Loss of evaluation set: 0.1387
+2024-09-10 09:31:16,389 - INFO - (Partial) epoch with ratio 1: 23,
+Loss of training set: 0.0497,
+Loss of evaluation set: 0.1031
+2024-09-10 09:55:37,518 - INFO - (Partial) epoch with ratio 1: 24,
+Loss of training set: 0.0518,
+Loss of evaluation set: 0.1454
+2024-09-10 10:19:59,133 - INFO - (Partial) epoch with ratio 1: 25,
+Loss of training set: 0.0494,
+Loss of evaluation set: 0.1387
+2024-09-10 10:44:18,019 - INFO - (Partial) epoch with ratio 1: 26,
+Loss of training set: 0.0492,
+Loss of evaluation set: 0.1776
+2024-09-10 11:04:15,861 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.0970,
+Loss of evaluation set: 0.1360
+2024-09-10 11:12:14,096 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 0.0922,
+Loss of evaluation set: 0.1345
+2024-09-10 11:20:15,944 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.1286,
+Loss of evaluation set: 0.0973
+2024-09-10 11:25:47,276 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 0.1257,
+Loss of evaluation set: 0.0933
+2024-09-10 11:31:18,370 - INFO - (Partial) epoch with ratio 1.0: 2,
+Loss of training set: 0.1250,
+Loss of evaluation set: 0.0965
+2024-09-10 11:36:49,388 - INFO - (Partial) epoch with ratio 1.0: 3,
+Loss of training set: 0.1249,
+Loss of evaluation set: 0.1014
+2024-09-10 11:42:20,319 - INFO - (Partial) epoch with ratio 1.0: 4,
+Loss of training set: 0.1243,
+Loss of evaluation set: 0.1010
+2024-09-10 11:47:51,246 - INFO - (Partial) epoch with ratio 1.0: 5,
+Loss of training set: 0.1243,
+Loss of evaluation set: 0.0961
+2024-09-10 11:53:22,287 - INFO - (Partial) epoch with ratio 1.0: 6,
+Loss of training set: 0.1239,
+Loss of evaluation set: 0.0990
+2024-09-10 11:58:53,879 - INFO - (Partial) epoch with ratio 1.0: 7,
+Loss of training set: 0.1238,
+Loss of evaluation set: 0.0916
+2024-09-10 12:04:25,016 - INFO - (Partial) epoch with ratio 1.0: 8,
+Loss of training set: 0.1237,
+Loss of evaluation set: 0.0979
+2024-09-10 12:09:56,157 - INFO - (Partial) epoch with ratio 1.0: 9,
+Loss of training set: 0.1236,
+Loss of evaluation set: 0.1087
+2024-09-10 12:18:00,678 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.1236,
+Loss of evaluation set: 0.1003
+2024-09-10 12:23:32,171 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 0.1236,
+Loss of evaluation set: 0.0941
+2024-09-10 12:29:03,691 - INFO - (Partial) epoch with ratio 1.0: 2,
+Loss of training set: 0.1242,
+Loss of evaluation set: 0.0959
+2024-09-10 12:34:35,235 - INFO - (Partial) epoch with ratio 1.0: 3,
+Loss of training set: 0.1232,
+Loss of evaluation set: 0.1214
+2024-09-10 12:40:06,623 - INFO - (Partial) epoch with ratio 1.0: 4,
+Loss of training set: 0.1233,
+Loss of evaluation set: 0.1274
+2024-09-10 12:46:03,256 - INFO - (Partial) epoch with ratio 1.0: 5,
+Loss of training set: 0.1229,
+Loss of evaluation set: 0.1200
+2024-09-10 12:52:03,701 - INFO - (Partial) epoch with ratio 1.0: 6,
+Loss of training set: 0.1230,
+Loss of evaluation set: 0.1091
+2024-09-10 12:58:04,505 - INFO - (Partial) epoch with ratio 1.0: 7,
+Loss of training set: 0.1228,
+Loss of evaluation set: 0.1110
+2024-09-10 13:04:13,247 - INFO - (Partial) epoch with ratio 1.0: 8,
+Loss of training set: 0.1227,
+Loss of evaluation set: 0.1076
+2024-09-10 13:10:17,058 - INFO - (Partial) epoch with ratio 1.0: 9,
+Loss of training set: 0.1226,
+Loss of evaluation set: 0.0997
+2024-09-10 14:20:15,166 - INFO - (Partial) epoch with ratio 0.001: 0,
+Loss of training set: 0.1148,
+Loss of evaluation set: 0.1318
+2024-09-10 14:30:11,755 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.0985,
+Loss of evaluation set: 0.0507
+2024-09-10 14:38:52,532 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 0.0954,
+Loss of evaluation set: 0.0579
+2024-09-10 14:47:57,022 - INFO - (Partial) epoch with ratio 1.0: 2,
+Loss of training set: 0.0950,
+Loss of evaluation set: 0.0553
+2024-09-10 14:56:59,734 - INFO - (Partial) epoch with ratio 1.0: 3,
+Loss of training set: 0.1157,
+Loss of evaluation set: 0.0589
+2024-09-10 15:06:22,181 - INFO - (Partial) epoch with ratio 1.0: 4,
+Loss of training set: 0.0988,
+Loss of evaluation set: 0.0457
+2024-09-10 17:38:27,136 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.0308,
+Loss of evaluation set: 0.1259
+2024-09-11 15:55:54,134 - INFO - (Partial) epoch with ratio 0.0001: 0,
+Loss of training set: 0.1713,
+Loss of evaluation set: 0.1342
+2024-09-11 16:29:48,536 - INFO - (Partial) epoch with ratio 0.3: 0,
+Loss of training set: 0.0814,
+Loss of evaluation set: 0.1801
+2024-09-11 16:41:51,023 - INFO - (Partial) epoch with ratio 0.3: 1,
+Loss of training set: 0.0795,
+Loss of evaluation set: 0.2463
+2024-09-11 16:53:51,536 - INFO - (Partial) epoch with ratio 0.3: 2,
+Loss of training set: 0.0793,
+Loss of evaluation set: 0.1236
+2024-09-11 17:05:50,196 - INFO - (Partial) epoch with ratio 0.3: 3,
+Loss of training set: 0.0776,
+Loss of evaluation set: 0.1249
+2024-09-11 17:17:50,007 - INFO - (Partial) epoch with ratio 0.3: 4,
+Loss of training set: 0.0757,
+Loss of evaluation set: 0.1210
+2024-09-11 17:29:49,582 - INFO - (Partial) epoch with ratio 0.3: 5,
+Loss of training set: 0.0760,
+Loss of evaluation set: 0.1411
+2024-09-11 17:41:49,421 - INFO - (Partial) epoch with ratio 0.3: 6,
+Loss of training set: 0.0758,
+Loss of evaluation set: 0.1330
+2024-09-11 17:53:52,257 - INFO - (Partial) epoch with ratio 0.3: 7,
+Loss of training set: 0.0773,
+Loss of evaluation set: 0.1429
+2024-09-11 18:05:53,563 - INFO - (Partial) epoch with ratio 0.3: 8,
+Loss of training set: 0.0761,
+Loss of evaluation set: 0.1226
+2024-09-11 18:17:51,457 - INFO - (Partial) epoch with ratio 0.3: 9,
+Loss of training set: 0.0732,
+Loss of evaluation set: 0.1163
+2024-09-11 18:30:44,071 - INFO - (Partial) epoch with ratio 0.3: 10,
+Loss of training set: 0.0756,
+Loss of evaluation set: 0.1256
+2024-09-11 18:43:46,576 - INFO - (Partial) epoch with ratio 0.3: 11,
+Loss of training set: 0.0772,
+Loss of evaluation set: 0.1230
+2024-09-11 18:55:48,367 - INFO - (Partial) epoch with ratio 0.3: 12,
+Loss of training set: 0.0714,
+Loss of evaluation set: 0.1133
+2024-09-11 19:45:18,176 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.0744,
+Loss of evaluation set: 0.1123
+2024-09-11 20:24:12,852 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 0.0739,
+Loss of evaluation set: 0.1205
+2024-09-11 21:03:23,078 - INFO - (Partial) epoch with ratio 1.0: 2,
+Loss of training set: 0.0740,
+Loss of evaluation set: 0.1264
+2024-09-11 21:42:48,677 - INFO - (Partial) epoch with ratio 1.0: 3,
+Loss of training set: 0.0728,
+Loss of evaluation set: 0.1172
+2024-09-11 23:39:00,798 - INFO - (Partial) epoch with ratio 0.01: 0,
+Loss of training set: 2.3178,
+Loss of evaluation set: 0.4238
+2024-09-12 00:38:15,518 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.0410,
+Loss of evaluation set: 0.0995
+2024-09-12 01:00:57,389 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 0.0389,
+Loss of evaluation set: 0.1044
+2024-09-12 01:23:40,315 - INFO - (Partial) epoch with ratio 1.0: 2,
+Loss of training set: 0.0387,
+Loss of evaluation set: 0.1046
+2024-09-12 01:46:21,870 - INFO - (Partial) epoch with ratio 1.0: 3,
+Loss of training set: 0.0384,
+Loss of evaluation set: 0.1053
+2024-09-12 02:09:02,575 - INFO - (Partial) epoch with ratio 1.0: 4,
+Loss of training set: 0.0379,
+Loss of evaluation set: 0.1074
+2024-09-12 02:31:43,348 - INFO - (Partial) epoch with ratio 1.0: 5,
+Loss of training set: 0.0379,
+Loss of evaluation set: 0.1082
+2024-09-12 02:54:26,758 - INFO - (Partial) epoch with ratio 1.0: 6,
+Loss of training set: 0.0376,
+Loss of evaluation set: 0.1023
+2024-09-12 03:17:07,433 - INFO - (Partial) epoch with ratio 1.0: 7,
+Loss of training set: 0.0376,
+Loss of evaluation set: 0.1103
+2024-09-12 03:39:46,324 - INFO - (Partial) epoch with ratio 1.0: 8,
+Loss of training set: 0.0373,
+Loss of evaluation set: 0.1019
+2024-09-12 04:02:28,654 - INFO - (Partial) epoch with ratio 1.0: 9,
+Loss of training set: 0.0376,
+Loss of evaluation set: 0.1101
+2024-09-12 04:25:10,333 - INFO - (Partial) epoch with ratio 1.0: 10,
+Loss of training set: 0.0371,
+Loss of evaluation set: 0.1036
+2024-09-12 04:47:51,340 - INFO - (Partial) epoch with ratio 1.0: 11,
+Loss of training set: 0.0369,
+Loss of evaluation set: 0.1057
+2024-09-12 05:10:30,675 - INFO - (Partial) epoch with ratio 1.0: 12,
+Loss of training set: 0.0376,
+Loss of evaluation set: 0.0938
+2024-09-12 05:33:10,254 - INFO - (Partial) epoch with ratio 1.0: 13,
+Loss of training set: 0.0366,
+Loss of evaluation set: 0.1052
+2024-09-12 05:55:49,517 - INFO - (Partial) epoch with ratio 1.0: 14,
+Loss of training set: 0.0368,
+Loss of evaluation set: 0.1044
+2024-09-12 06:18:29,980 - INFO - (Partial) epoch with ratio 1.0: 15,
+Loss of training set: 0.0368,
+Loss of evaluation set: 0.0980
+2024-09-12 06:41:07,065 - INFO - (Partial) epoch with ratio 1.0: 16,
+Loss of training set: 0.0365,
+Loss of evaluation set: 0.0943
+2024-09-12 07:03:45,614 - INFO - (Partial) epoch with ratio 1.0: 17,
+Loss of training set: 0.0367,
+Loss of evaluation set: 0.0978
+2024-09-12 07:26:23,315 - INFO - (Partial) epoch with ratio 1.0: 18,
+Loss of training set: 0.0362,
+Loss of evaluation set: 0.1044
+2024-09-12 07:49:00,995 - INFO - (Partial) epoch with ratio 1.0: 19,
+Loss of training set: 0.0364,
+Loss of evaluation set: 0.0968
+2024-09-12 08:11:38,412 - INFO - (Partial) epoch with ratio 1.0: 20,
+Loss of training set: 0.0362,
+Loss of evaluation set: 0.1028
+2024-09-12 08:34:16,151 - INFO - (Partial) epoch with ratio 1.0: 21,
+Loss of training set: 0.0362,
+Loss of evaluation set: 0.1001
+2024-09-12 08:56:54,598 - INFO - (Partial) epoch with ratio 1.0: 22,
+Loss of training set: 0.0362,
+Loss of evaluation set: 0.1027
+2024-09-12 09:19:31,561 - INFO - (Partial) epoch with ratio 1.0: 23,
+Loss of training set: 0.0360,
+Loss of evaluation set: 0.1053
+2024-09-12 09:42:09,953 - INFO - (Partial) epoch with ratio 1.0: 24,
+Loss of training set: 0.0359,
+Loss of evaluation set: 0.0978
+2024-09-12 10:04:50,782 - INFO - (Partial) epoch with ratio 1.0: 25,
+Loss of training set: 0.0358,
+Loss of evaluation set: 0.0941
+2024-09-12 10:27:30,407 - INFO - (Partial) epoch with ratio 1.0: 26,
+Loss of training set: 0.0362,
+Loss of evaluation set: 0.0993
+2024-09-12 10:50:08,566 - INFO - (Partial) epoch with ratio 1.0: 27,
+Loss of training set: 0.0358,
+Loss of evaluation set: 0.1048
+2024-09-12 13:00:28,983 - INFO - (Partial) epoch with ratio 1.0: 0,
+Loss of training set: 0.0715,
+Loss of evaluation set: 0.1042
+2024-09-12 13:39:26,635 - INFO - (Partial) epoch with ratio 1.0: 1,
+Loss of training set: 0.0702,
+Loss of evaluation set: 0.1016

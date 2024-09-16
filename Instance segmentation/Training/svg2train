@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <filename>"
+    exit 1
+fi
+
+INPUT_FILE="$1"
+
+BASENAME=$(basename "$INPUT_FILE" | sed 's/\.[^.]*$//')
+
+python3 svg2cocojson.py "$BASENAME"
+python3 coco2patches.py "$BASENAME"
+python3 viewcoco_single.py "$BASENAME"

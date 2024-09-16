@@ -32,66 +32,7 @@ def show_progress_bar(progress, total, message):
 
 ####### U-Net
 
-class UNet(nn.Module):
-    def __init__(self, in_channels=3, out_channels=1):
-        super(UNet, self).__init__()
-
-        # Contracting Path (Encoder)
-        self.encoder1 = self.conv_block(in_channels, 64)
-        self.encoder2 = self.conv_block(64, 128)
-        self.encoder3 = self.conv_block(128, 256)
-        self.encoder4 = self.conv_block(256, 512)
-
-        # Bottleneck
-        self.bottleneck = self.conv_block(512, 1024)
-
-        # Expanding Path (Decoder)
-        self.upconv4 = self.upconv_block(1024, 512)
-        self.decoder4 = self.conv_block(1024, 512)
-        self.upconv3 = self.upconv_block(512, 256)
-        self.decoder3 = self.conv_block(512, 256)
-        self.upconv2 = self.upconv_block(256, 128)
-        self.decoder2 = self.conv_block(256, 128)
-        self.upconv1 = self.upconv_block(128, 64)
-        self.decoder1 = self.conv_block(128, 64)
-
-        # Final Convolution
-        self.final_conv = nn.Conv2d(64, out_channels, kernel_size=1)
-
-    def conv_block(self, in_channels, out_channels):
-        return nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
-            nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1),
-            nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True)
-        )
-
-    def upconv_block(self, in_channels, out_channels):
-        return nn.ConvTranspose2d(in_channels, out_channels, kernel_size=2, stride=2)
-
-    def forward(self, x):
-        # Contracting Path
-        enc1 = self.encoder1(x)
-        enc2 = self.encoder2(F.max_pool2d(enc1, 2))
-        enc3 = self.encoder3(F.max_pool2d(enc2, 2))
-        enc4 = self.encoder4(F.max_pool2d(enc3, 2))
-
-        # Bottleneck
-        bottleneck = self.bottleneck(F.max_pool2d(enc4, 2))
-
-        # Expanding Path
-        up4 = self.upconv4(bottleneck)
-        dec4 = self.decoder4(torch.cat((up4, enc4), dim=1))
-        up3 = self.upconv3(dec4)
-        dec3 = self.decoder3(torch.cat((up3, enc3), dim=1))
-        up2 = self.upconv2(dec3)
-        dec2 = self.decoder2(torch.cat((up2, enc2), dim=1))
-        up1 = self.upconv1(dec2)
-        dec1 = self.decoder1(torch.cat((up1, enc1), dim=1))
-
-        return torch.sigmoid(self.final_conv(dec1))
+import UNet3
 
 ####### warning
 
@@ -104,7 +45,7 @@ warnings.filterwarnings("ignore", message="You are using `torch.load` with `weig
 
 ####### hyperparameters and loss
 
-# Experiments with Dice loss
+# experiments with Dice loss
 def dice_loss(preds, targets, smooth=1.0):
     preds = preds.contiguous()
     targets = targets.contiguous()
@@ -114,6 +55,16 @@ def dice_loss(preds, targets, smooth=1.0):
     loss = (2. * intersection + smooth) / (preds.sum(dim=2).sum(dim=2) + targets.sum(dim=2).sum(dim=2) + smooth)
 
     return 1 - loss.mean()
+
+# experiments with log-modified TV loss
+def log_TV_loss(output, alpha=1.0):
+    diff_i = torch.abs(output[:, :, 1:, :] - output[:, :, :-1, :])
+    diff_j = torch.abs(output[:, :, :, 1:] - output[:, :, :, :-1])
+
+    penalty_i = torch.log(1 + alpha * diff_i)
+    penalty_j = torch.log(1 + alpha * diff_j)
+
+    return torch.mean(penalty_i) + torch.mean(penalty_j)
 
 # Hyperparameters
 learning_rate = 1e-4
@@ -190,42 +141,40 @@ def train(train_dataset, test_dataset, batch_size, ratio, epochs):
         test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
         model.train()
-        train_loss = 0
-        test_loss = 0
+        train_loss = torch.zeros(1, device=device)
+        test_loss = torch.zeros(1, device=device)
 
         print(f"(Partial) epoch [{epoch + 1}/{epochs}]:")
         for batch_idx, (images, masks) in enumerate(train_dataloader):
             show_progress_bar(batch_idx, len(train_dataloader), "Progression: ")
-            #images = torch.tensor(images, dtype=torch.float32).to(device)
-            #masks = torch.tensor(masks, dtype=torch.float32).to(device)
-            images.to(device)
-            masks.to(device)
 
             optimizer.zero_grad()
+            #print("computing model")
             outputs = model(images)
+        #    print("criterion")
             bce_loss = criterion(outputs, masks)
             #dice_loss_value = dice_loss(outputs, masks)
             # experiment, doesn't seem to give good results
-            loss = bce_loss #0.7 * bce_loss + 0.3 * dice_loss_value
+            loss = bce_loss + 0.2*log_TV_loss(outputs)#0.7 * bce_loss + 0.3 * dice_loss_value
+        #    print("backward")
             loss.backward()
+        #    print("step")
             optimizer.step()
 
-            train_loss += loss.item()
+            train_loss += loss
         model.eval()
         print(f"Testing performance;")
         with torch.no_grad():
             for batch_idx, (images, masks) in enumerate(test_dataloader):
                 show_progress_bar(batch_idx + 2, len(test_dataloader), "Progression: ")
-                #images = torch.tensor(images, dtype=torch.float32).to(device)
-                #masks = torch.tensor(masks, dtype=torch.float32).to(device)
-                images.to(device)
-                masks.to(device)
 
                 outputs_eval = model(images)
                 bce_loss = criterion(outputs_eval, masks)
                 #dice_loss_value = dice_loss(outputs_eval, masks)
-                loss = bce_loss #0.7 * bce_loss + 0.3 * dice_loss_value
-                test_loss += loss.item()
+                loss = bce_loss + 0.2*log_TV_loss(outputs) #0.7 * bce_loss + 0.3 * dice_loss_value
+                test_loss += loss
+
+        train_loss, test_loss = train_loss.item(), test_loss.item()
 
         print("Done.")
         print(f"Loss for the training set: {train_loss / len(train_dataloader)}")
