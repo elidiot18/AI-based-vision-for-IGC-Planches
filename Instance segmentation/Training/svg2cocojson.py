@@ -1,50 +1,54 @@
 import json
 import numpy as np
-from PIL import Image
+import cv2
 import svgpathtools
 from pycocotools import mask as coco_mask
 from skimage.draw import polygon, disk
 import os
 import argparse
 from xml.etree import ElementTree as ET
-import subprocess
+import base64
 
 PATCH_SIZE = 256
 OVERLAP = 0.3
 
-def get_image_id_from_svg(svg_path):
-    """Get the ID of the embedded raster image from SVG."""
+def extract_image_from_svg(svg_path, output_path):
+    """Extract the base64-encoded raster image from the SVG and save it to output_path"""
+    """return: width, height"""
+    # Read and parse the SVG file
     with open(svg_path, 'r') as file:
         svg_content = file.read()
+
     root = ET.fromstring(svg_content)
     namespaces = {'svg': 'http://www.w3.org/2000/svg'}
     image = root.find('.//svg:image', namespaces)
-    if image is not None:
-        return image.attrib.get('id')
-    return None
 
-def extract_image_by_id(svg_path, image_id, raster_path):
-    """Extract the embedded raster image by ID using Inkscape."""
-    command = [
-        'inkscape',
-        svg_path,
-        '--export-type=png',
-        '--export-id=' + image_id,
-        '--export-filename=' + raster_path,
-        '--export-id-only'
-    ]
-    try:
-        subprocess.run(command, check=True)
-    except subprocess.CalledProcessError as e:
-        raise RuntimeError(f"Error extracting raster image with Inkscape: {e}")
+    if image is None:
+        raise RuntimeError("No image found in SVG.")
 
-def get_image_size(image_path):
-    """Get the size of the image."""
-    with Image.open(image_path) as img:
-        return img.size
+    # Get the base64-encoded image data
+    image_data = image.attrib.get('{http://www.w3.org/1999/xlink}href')
+    if not image_data.startswith('data:image/png;base64,'):
+        raise RuntimeError("Unsupported image format or no image data found.")
 
-def get_svg_image_size(svg_path):
-    """Get the size of the embedded raster image from SVG."""
+    # Extract base64-encoded part
+    base64_data = image_data.split('base64,', 1)[1]
+    image_bytes = base64.b64decode(base64_data)
+
+    # Convert bytes to a numpy array
+    np_array = np.frombuffer(image_bytes, dtype=np.uint8)
+
+    # Decode the image array to an OpenCV image
+    image = cv2.imdecode(np_array, cv2.IMREAD_UNCHANGED)
+    if image is None:
+        raise RuntimeError("Error decoding the image.")
+
+    # Save the image using OpenCV
+    cv2.imwrite(output_path, image)
+    return image.shape[1], image.shape[0]  # width, height
+
+def get_raster_virtual_size(svg_path):
+    """Get the virtual width and height of the raster embedded in the svg file."""
     with open(svg_path, 'r') as file:
         svg_content = file.read()
     root = ET.fromstring(svg_content)
@@ -54,12 +58,12 @@ def get_svg_image_size(svg_path):
         width = float(image.attrib.get('width', '100px').replace('px', '').strip())
         height = float(image.attrib.get('height', '100px').replace('px', '').strip())
         return width, height
-    return 100, 100
+    return None
 
-def svg_to_masks(svg_path, image_size):
+def svg_to_masks(svg_path, virtual_size, intrinsic_size):
     """Convert SVG paths and circles to binary masks and extract fill colors."""
-    img_width, img_height = image_size
-    svg_width, svg_height = get_svg_image_size(svg_path)
+    vw, vh = virtual_size
+    iw, ih = intrinsic_size
 
     tree = ET.parse(svg_path)
     root = tree.getroot()
@@ -77,10 +81,10 @@ def svg_to_masks(svg_path, image_size):
                 coords.extend([(p.real, p.imag) for p in segment])
         if coords:
             coords = np.array(coords)
-            coords[:, 0] = (coords[:, 0] / svg_width) * img_width
-            coords[:, 1] = (coords[:, 1] / svg_height) * img_height
-            coords = np.clip(coords, 0, [img_width - 1, img_height - 1])
-            binary_mask = np.zeros((img_height, img_width), dtype=np.uint8)
+            coords[:, 0] = (coords[:, 0] / vw) * iw
+            coords[:, 1] = (coords[:, 1] / vh) * ih
+            coords = np.clip(coords, 0, [iw - 1, ih - 1])
+            binary_mask = np.zeros((ih, iw), dtype=np.uint8)
             rr, cc = polygon(coords[:, 1], coords[:, 0], shape=binary_mask.shape)
             binary_mask[rr, cc] = 1
             if np.sum(binary_mask) > 0:
@@ -92,10 +96,10 @@ def svg_to_masks(svg_path, image_size):
         cx = float(circle_element.attrib.get('cx', '0'))
         cy = float(circle_element.attrib.get('cy', '0'))
         r = float(circle_element.attrib.get('r', '0'))
-        cx = (cx / svg_width) * img_width
-        cy = (cy / svg_height) * img_height
-        r = (r / svg_height) * img_height
-        binary_mask = np.zeros((img_height, img_width), dtype=np.uint8)
+        cx = (cx / vw) * iw
+        cy = (cy / vh) * ih
+        r = (r / vh) * ih
+        binary_mask = np.zeros((ih, iw), dtype=np.uint8)
         rr, cc = disk((cy, cx), r, shape=binary_mask.shape)
         binary_mask[rr, cc] = 1
         if np.sum(binary_mask) > 0:
@@ -112,28 +116,22 @@ def svg_to_masks(svg_path, image_size):
     return masks_and_attributes
 
 def mask_to_rle(binary_mask):
-    """Convert binary mask to RLE format, with enhanced error checking."""
-    try:
-        binary_mask = np.asfortranarray(binary_mask)
-        rle = coco_mask.encode(binary_mask)
-        rle['counts'] = rle['counts'].decode('ascii')
-        return rle
-    except Exception as e:
-        print(f"Error converting mask to RLE: {e}")
-        return None
+    """Convert binary mask to RLE format"""
+    binary_mask = np.asfortranarray(binary_mask)
+    rle = coco_mask.encode(binary_mask)
+    rle['counts'] = rle['counts'].decode('ascii')
+    return rle
 
 def generate_coco_annotations(svg_path, output_folder):
     """Generate COCO annotations from SVG and raster image."""
-    image_id = get_image_id_from_svg(svg_path)
-    if not image_id:
-        raise RuntimeError("No image ID found in SVG.")
 
     raster_path = os.path.join(output_folder, os.path.splitext(svg_path)[0] + '.png')
-    extract_image_by_id(svg_path, image_id, raster_path)
-
-    image_size = get_image_size(raster_path)
     image_filename = os.path.basename(raster_path)
-    masks_and_attributes = svg_to_masks(svg_path, image_size)
+
+    virtual_size = get_raster_virtual_size(svg_path)
+    intrinsic_size = extract_image_from_svg(svg_path, raster_path)
+
+    masks_and_attributes = svg_to_masks(svg_path, virtual_size, intrinsic_size)
 
     category_map = {}
     categories = []
@@ -168,7 +166,7 @@ def generate_coco_annotations(svg_path, output_folder):
                 })
 
     coco_data = {
-        "images": [{"id": 1, "width": image_size[0], "height": image_size[1], "file_name": image_filename}],
+        "images": [{"id": 1, "width": intrinsic_size[0], "height": intrinsic_size[1], "file_name": image_filename}],
         "categories": categories,  # Categories come before annotations
         "annotations": annotations
     }
@@ -180,7 +178,7 @@ def generate_coco_annotations(svg_path, output_folder):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Takes an SVG file, extracts the embedded raster image, and generates COCO JSON annotations.")
-    parser.add_argument("name", help="Name <name> such that <name.svg> exists in the current directory.")
+    parser.add_argument("name", help="Name <name> such that <name>.svg exists in the current directory.")
     args = parser.parse_args()
 
     svg_path = f"{args.name}.svg"
