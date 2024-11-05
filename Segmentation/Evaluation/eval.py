@@ -5,8 +5,8 @@ import torch
 import torch.nn as nn
 import sys
 import torch.nn.functional as F
-import matplotlib.pyplot as plt
 import random
+import argparse
 
 class UNet(nn.Module):
     def __init__(self, in_channels=3, out_channels=1):
@@ -55,67 +55,68 @@ class UNet(nn.Module):
         dec1 = self.decoder1(torch.cat((up1, enc1), dim=1))
         return torch.sigmoid(self.final_conv(dec1))
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = UNet().to(device)
-model.load_state_dict(torch.load('../Model/U-Net_1_model.pth', weights_only = False))
-
-img_path = input("Evaluate on file: ")
-
-image = cv2.imread(img_path, cv2.IMREAD_COLOR)
-h, w, _ = image.shape
-image = np.transpose(image, (2, 0, 1))
-
-output = torch.zeros((2, h, w), dtype=torch.float32).to(device)
-overlap = 0.5
-step = int(256 * (1 - overlap))
-
-batch_size = 15
-patches = []
-coords = []
-
-random_patches = []
-random_predictions = []
-
 def process_batch(patches, coords, model, output):
     patches = torch.stack(patches)
     with torch.no_grad():
         patch_evals = model(patches)
-
     for i, (y, x) in enumerate(coords):
         output[0, y:y + 256, x:x + 256] += patch_evals[i, 0, :, :]
         output[1, y:y + 256, x:x + 256] += 1
 
 def show_progress_bar(progress, total, message):
     percent = 100 * (progress / float(total))
-    bar = '█' * int(percent/10) + '-' * (10 - int(percent/10))
+    bar = '█' * int(percent / 10) + '-' * (10 - int(percent / 10))
     message = '\r' + message + f'[{bar}] {percent:.2f}%'
     sys.stdout.write(message)
     sys.stdout.flush()
 
-with torch.no_grad():
-    for y in range(0, h, step):
-        for x in range(0, w, step):
-            show_progress_bar(x + (y+1)*w, h*w, "Progress: ")
-            if y + 256 > h:
-                y = h - 256
-            if x + 256 > w:
-                x = w - 256
+def main():
+    parser = argparse.ArgumentParser(description="Get that mass")
+    parser.add_argument("img_path", type=str, help="Image path")
+    parser.add_argument("--batch", type=int, default=15, help="Batch size for patch processing (default: 15)")
+    args = parser.parse_args()
 
-            patch = torch.tensor(image[:, y:y + 256, x:x + 256] / 255.0, dtype=torch.float32).to(device)
-            patches.append(patch)
-            coords.append((y, x))
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = UNet().to(device)
+    model.load_state_dict(torch.load('../Architectures/U-Net 3+3/U-Net_1_model.pth', weights_only=False))
 
-            if len(patches) == batch_size:
-                process_batch(patches, coords, model, output)
-                patches = []
-                coords = []
+    image = cv2.imread(args.img_path, cv2.IMREAD_COLOR)
+    h, w, _ = image.shape
+    image = np.transpose(image, (2, 0, 1))
 
-    if patches:
-        process_batch(patches, coords, model, output)
+    output = torch.zeros((2, h, w), dtype=torch.float32).to(device)
+    overlap = 0.5
+    step = int(256 * (1 - overlap))
 
-output = output[0] / output[1]
+    patches = []
+    coords = []
 
-output_image = output.cpu().numpy()
+    with torch.no_grad():
+        for y in range(0, h, step):
+            for x in range(0, w, step):
+                show_progress_bar(x + (y+1)*w, h*w, "Progress: ")
+                if y + 256 > h:
+                    y = h - 256
+                if x + 256 > w:
+                    x = w - 256
 
-name, ext = os.path.splitext(img_path)
-cv2.imwrite(name + '_eval' + ext, (output_image * 255).astype(np.uint8))
+                patch = torch.tensor(image[:, y:y + 256, x:x + 256] / 255.0, dtype=torch.float32).to(device)
+                patches.append(patch)
+                coords.append((y, x))
+
+                if len(patches) == args.batch:
+                    process_batch(patches, coords, model, output)
+                    patches = []
+                    coords = []
+
+        if patches:
+            process_batch(patches, coords, model, output)
+            
+    output = output[0] / output[1]
+    output_image = output.cpu().numpy()
+
+    name, ext = os.path.splitext(args.img_path)
+    cv2.imwrite(name + '_eval' + ext, (output_image * 255).astype(np.uint8))
+
+if __name__ == "__main__":
+    main()

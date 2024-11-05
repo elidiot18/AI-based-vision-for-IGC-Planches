@@ -1,3 +1,6 @@
 **/*.png
 **/*.pth
 **/*.svg
+**/mass
+**/*.json
+

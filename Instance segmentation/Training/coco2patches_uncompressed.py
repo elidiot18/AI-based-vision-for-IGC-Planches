@@ -3,8 +3,6 @@ import json
 import numpy as np
 import cv2
 from pycocotools.coco import COCO
-from pycocotools import mask as coco_mask
-from pycocotools.mask import toBbox
 from pycocotools.mask import area
 from scipy.ndimage import label
 
@@ -14,121 +12,51 @@ import costumcoco as ccc
 PATCH_SIZE = 256
 OVERLAP = 0.3
 
-def leb128_encode(value):
-    """Encodes an unsigned integer into LEB128 byte format."""
-    result = []
-    while value > 0x7F:  # while there are more than 7 bits
-        result.append((value & 0x7F) | 0x80)  # Set MSB to 1 to indicate more bytes
-        value >>= 7
-    result.append(value & 0x7F)  # Final byte with MSB set to 0
-    return result
-
-def leb128_decode(encoded_bytes):
-    """Decodes a LEB128 encoded list of bytes back to an integer."""
-    value = 0
-    shift = 0
-    for byte in encoded_bytes:
-        value |= (byte & 0x7F) << shift  # Take the lower 7 bits
-        if byte & 0x80 == 0:  # MSB is 0, this is the last byte
-            break
-        shift += 7
-    return value
-
-def string_to_counts(compressed_string):
-    """Decompress the RLE counts from the LEB128-compressed string format."""
-    compressed_bytes = list(map(ord, compressed_string))  # Convert characters back to byte values
-    decompressed_counts = []
-
-    i = 0
-    while i < len(compressed_bytes):
-        value, shift = 0, 0
-        while True:
-            byte = compressed_bytes[i]
-            value |= (byte & 0x7F) << shift
-            i += 1
-            if byte & 0x80 == 0:  # Stop if MSB is 0
-                break
-            shift += 7
-        decompressed_counts.append(value)
-    return decompressed_counts
-
-def counts_to_string(rle_counts):
-    """Compress RLE counts using LEB128 and return a string representing the compressed bytes."""
-    compressed_bytes = []
-    for count in rle_counts:
-        compressed_bytes.extend(leb128_encode(count))  # Add LEB128-encoded bytes
-    # Convert the list of bytes to a string by converting each byte to its ASCII character equivalent
-    compressed_string = ''.join(map(chr, compressed_bytes))
-    return compressed_string
-
-def binary_mask_to_uncompressed_rle(binary_mask):
-    rle = {"counts": [], "size": list(binary_mask.shape)}
-
-    flattened_mask = binary_mask.ravel(order="F")
-    diff_arr = np.diff(flattened_mask)
-    nonzero_indices = np.where(diff_arr != 0)[0] + 1
-    lengths = np.diff(np.concatenate(([0], nonzero_indices, [len(flattened_mask)])))
-
-    # note that the odd counts are always the numbers of zeros
-    if flattened_mask[0] == 1:
-        lengths = np.concatenate(([0], lengths))
-
-    rle["counts"] = lengths.tolist()
-
-    return rle
-
-def load_coco_annotations(json_path):
-    """Load COCO annotations from a JSON file."""
-    return COCO(json_path)
-
-def decode_rle_to_mask(rle):
-    """Decode RLE to binary mask."""
-    return coco_mask.decode(rle)
+################################################
+############ Tools for patching
+############
 
 def crop_to_patch(img, x, y, patch_size=PATCH_SIZE):
-    """Crop the binary mask to the patch coordinates."""
+    """Crop the image to the patch coordinates."""
     return img[y:y + patch_size, x:x + patch_size]
 
-def compute_rle_for_patch(cropped_mask):
-    """Compute RLE for the cropped patch mask."""
-    rle = coco_mask.encode(np.asfortranarray(cropped_mask))
-    rle['counts'] = rle['counts'].decode('ascii')  # Ensure 'counts' is a string for JSON serialization
-    return rle
-
-def find_connected_components(binary_mask):
+def mask_components(binary_mask):
     """Find connected components in binary mask."""
     labeled_array, num_features = label(binary_mask)
     return labeled_array, num_features
 
-def connected_components_to_rle(binary_mask, labeled_array):
+def connected_components_to_uncompressed_rle(binary_mask, labeled_array):
     """Convert connected components to RLE format."""
     components_rles = []
     num_labels = np.max(labeled_array)
 
     for label_id in range(1, num_labels + 1):
-        component_mask = (labeled_array == label_id).astype(np.uint32)
-        rle = coco_mask.encode(np.asfortranarray(component_mask))
-        rle['counts'] = rle['counts'].decode('ascii')
+        component_mask = labeled_array == label_id
+        rle = ccc.mask_to_uncompressed_rle(component_mask)
         components_rles.append(rle)
     return components_rles
 
-def rle_connected_components(rle):
+def uncompressed_rle_connected_components(rle):
     """Find connected components of an RLE mask."""
     # Decode RLE to binary mask
-    binary_mask = decode_rle_to_mask(rle)
+    binary_mask = ccc.uncompressed_rle_to_mask(rle)
 
     # Find connected components
-    labeled_array, num_features = find_connected_components(binary_mask)
+    labeled_array, num_features = mask_components(binary_mask)
 
     # Convert connected components to RLE format
-    components_rles = connected_components_to_rle(binary_mask, labeled_array)
+    components_rles = connected_components_to_uncompressed_rle(binary_mask, labeled_array)
 
     return components_rles
 
-def rotate90_rle(rle, edge):
-    """Rotate RLE encoding by 90 degrees clockwise."""
-    counts = np.frombuffer(rle['counts'].encode(), dtype=np.uint32)
-    size = rle['size'][0]  # Assuming the size is square
+def rotate90_uncompressed_rle(rle):
+    """Rotate RLE encoding by 90 degrees clockwise assuming canvas is a square."""
+    counts = rle['counts']
+    edge = rle['size'][0]
+
+    if edge != rle['size'][1]:
+        raise ValueError('RLE Canvas has to be a square')
+
     new_counts = []
 
     def add_run(start, length):
@@ -162,7 +90,11 @@ def rotate90_rle(rle, edge):
         flattened_counts.append(start)
         flattened_counts.append(length)
 
-    return {'counts': np.array(flattened_counts, dtype=np.uint32).tobytes(), 'size': [edge, edge]}
+    return {'counts': np.array(flattened_counts), 'size': rle['size']}
+
+################################################
+############ Main
+############
 
 def generate_patches(image, coco, output_folder, output_json_path, name, patch_size=PATCH_SIZE, overlap=OVERLAP):
     """Generate patches from the image and adjust annotations for each patch."""
@@ -210,12 +142,12 @@ def generate_patches(image, coco, output_folder, output_json_path, name, patch_s
                 x_max, y_max = x_min + w, y_min + h
 
                 if not (x + patch_size < x_min or x > x_max or y + patch_size < y_min or y > y_max):
-                    mask = decode_compressed_rle_to_mask(ann['segmentation'])
+                    mask = ccc.compressed_rle_to_mask(ann['segmentation'])
                     cropped_mask = crop_to_patch(mask, x, y, patch_size)
 
                     if np.any(cropped_mask):  # Skip if mask has no positive values
-                        cropped_rle = compute_uncompressed_rle_for_patch(cropped_mask)
-                        components = rle_connected_components(cropped_rle)
+                        cropped_rle = ccc.mask_to_uncompressed_rle(cropped_mask)
+                        components = uncompressed_rle_connected_components(cropped_rle)
 
                         for k, component in enumerate(components):
                             a = float(ccc.uncompressed_rle_area(component))
@@ -223,14 +155,14 @@ def generate_patches(image, coco, output_folder, output_json_path, name, patch_s
                                 continue
 
                             for angle in [0, 90, 180, 270]:
-                                rotated_rle = rotate90_rle(component, PATCH_SIZE)
+                                rotated_rle = rotate90_uncompressed_rle(component)
                                 patch_annotations.append({
                                     "id": ann_id,
                                     "image_id": patch_id - 4 + angle // 90,
                                     "name": f'{patch_id - 4 + angle // 90}_{ann["name"]}_{k}_{angle}',
                                     "category_id": ann['category_id'],
-                                    "segmentation": counts_to_string(rotated_rle),
-                                    "bbox": rle_to_bbox(component),
+                                    "segmentation": ccc.rle_compress(rotated_rle),
+                                    "bbox": ccc.uncompressed_rle_to_bbox(component),
                                     "area": a,
                                     "iscrowd": ann['iscrowd']
                                 })
@@ -244,8 +176,6 @@ def generate_patches(image, coco, output_folder, output_json_path, name, patch_s
             "categories": coco.dataset['categories']
         }, output_json, indent=4)
 
-
-
 def process_image_and_annotations(image_path, json_path, output_folder, name):
     """Process image and annotations to generate patches and COCO JSON."""
     # Create the output folder if it doesn't exist
@@ -253,7 +183,7 @@ def process_image_and_annotations(image_path, json_path, output_folder, name):
 
     # Load the image and annotations
     image = cv2.imread(image_path)
-    coco = load_coco_annotations(json_path)
+    coco = COCO(json_path)
 
     # Set the output JSON path inside the output folder
     output_json_path = os.path.join(output_folder, f'{name}_patches.json')

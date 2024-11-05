@@ -11,4 +11,4 @@ BASENAME=$(basename "$INPUT_FILE" | sed 's/\.[^.]*$//')
 
 python3 svg2cocojson.py "$BASENAME"
 python3 coco2patches.py "$BASENAME"
-python3 viewcoco_single.py "$BASENAME"
+python3 viewcoco_single.py "$BASENAME" > /dev/null

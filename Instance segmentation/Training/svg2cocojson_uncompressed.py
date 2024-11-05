@@ -2,7 +2,6 @@ import json
 import numpy as np
 import cv2
 import svgpathtools
-from pycocotools import mask as coco_mask
 from skimage.draw import polygon, disk
 import os
 import argparse
@@ -10,13 +9,21 @@ import random
 from xml.etree import ElementTree as ET
 import base64
 
+########## costum import
+import costumcoco as ccc
+
 PATCH_SIZE = 256
 OVERLAP = 0.3
 
+################################################
+############ Dealing with the raster embedded
+############ inside the .svg file
+############
+
+
 def extract_image_from_svg(svg_path, output_path):
-    """Extract the base64-encoded raster image from the SVG and save it to output_path"""
+    """Extract the base64-encoded raster image from the SVG and save it to output_path."""
     """return: width, height"""
-    # Read and parse the SVG file
     with open(svg_path, 'r') as file:
         svg_content = file.read()
 
@@ -61,6 +68,10 @@ def get_raster_virtual_size(svg_path):
         return width, height
     return None
 
+################################################
+############ Main
+############
+
 def svg_to_masks(svg_path, virtual_size, intrinsic_size):
     """Convert SVG paths and circles to binary masks and extract fill colors."""
     vw, vh = virtual_size
@@ -85,7 +96,7 @@ def svg_to_masks(svg_path, virtual_size, intrinsic_size):
             coords[:, 0] = (coords[:, 0] / vw) * iw
             coords[:, 1] = (coords[:, 1] / vh) * ih
             coords = np.clip(coords, 0, [iw - 1, ih - 1])
-            binary_mask = np.zeros((ih, iw), dtype=np.uint8)
+            binary_mask = np.zeros((ih, iw))
             rr, cc = polygon(coords[:, 1], coords[:, 0], shape=binary_mask.shape)
             binary_mask[rr, cc] = 1
             if np.sum(binary_mask) > 0:
@@ -100,7 +111,7 @@ def svg_to_masks(svg_path, virtual_size, intrinsic_size):
         cx = (cx / vw) * iw
         cy = (cy / vh) * ih
         r = (r / vh) * ih
-        binary_mask = np.zeros((ih, iw), dtype=np.uint8)
+        binary_mask = np.zeros((ih, iw))
         rr, cc = disk((cy, cx), r, shape=binary_mask.shape)
         binary_mask[rr, cc] = 1
         if np.sum(binary_mask) > 0:
@@ -114,13 +125,6 @@ def svg_to_masks(svg_path, virtual_size, intrinsic_size):
     for circle_element in circle_elements:
         process_circle(circle_element)
     return masks_and_attributes
-
-def mask_to_rle(binary_mask):
-    """Convert binary mask to RLE format"""
-    binary_mask = np.asfortranarray(binary_mask)
-    rle = coco_mask.encode(binary_mask)
-    rle['counts'] = rle['counts'].decode('ascii')
-    return rle
 
 def generate_coco_annotations(svg_path, output_folder):
     """Generate COCO annotations from SVG and raster image."""
@@ -147,23 +151,18 @@ def generate_coco_annotations(svg_path, output_folder):
 
         area = float(np.sum(binary_mask))
         if area > 0:
-            rle = mask_to_rle(binary_mask)
-            if rle:
-                bbox = coco_mask.toBbox(rle)
-                bbox = list(map(int, bbox))
-                annotations.append({
-                    "id": i,
-                    "image_id": 1,
-                    "category_id": category_id,
-                    "segmentation": {
-                        "counts": rle["counts"],
-                        "size": rle["size"]
-                    },
-                    "area": area,
-                    "bbox": bbox,
-                    "iscrowd": 0,
-                    "name": object_id  # Add name field with SVG ID
-                })
+            rle = ccc.binary_mask_to_uncompressed_rle(binary_mask)  # Use uncompressed RLE conversion
+            bbox = ccc.uncompressed_rle_to_bbox(rle)
+            annotations.append({
+                "id": i,
+                "image_id": 1,
+                "category_id": category_id,
+                "segmentation": ccc.rle_compress(rle),
+                "area": area,
+                "bbox": bbox,
+                "iscrowd": 0,
+                "name": object_id  # Add name field with SVG ID
+            })
 
     coco_data = {
         "images": [{"id": 1, "width": intrinsic_size[0], "height": intrinsic_size[1], "file_name": image_filename}],
@@ -174,7 +173,6 @@ def generate_coco_annotations(svg_path, output_folder):
     output_json_path = os.path.join(output_folder, os.path.splitext(svg_path)[0] + '.json')
     with open(output_json_path, 'w') as f:
         json.dump(coco_data, f, indent=4)
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Takes an SVG file, extracts the embedded raster image, and generates COCO JSON annotations.")
